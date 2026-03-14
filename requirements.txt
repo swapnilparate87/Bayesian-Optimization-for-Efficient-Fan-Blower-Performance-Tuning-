@@ -1,0 +1,44 @@
+# Core data libraries
+numpy
+pandas
+scipy
+
+# Visualization
+matplotlib
+seaborn
+
+# Machine learning
+scikit-learn
+xgboost
+lightgbm
+
+# Optimization
+optuna
+scikit-optimize
+
+# Feature engineering
+tsfresh
+
+# Experiment tracking
+mlflow
+
+# Data versioning
+dvc
+dvc[s3]
+
+# API deployment
+fastapi
+uvicorn
+pydantic
+
+# Utilities
+joblib
+tqdm
+pyyaml
+
+# Monitoring
+prometheus-client
+
+# Development
+notebook
+ipykernel

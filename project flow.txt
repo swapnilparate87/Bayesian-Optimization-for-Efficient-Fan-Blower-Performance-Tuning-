@@ -1,0 +1,249 @@
+INDUSTRY-GRADE FAN BLOWER AI PROJECT – COMPLETE IMPLEMENTATION GUIDE
+Author: Swapnil Parate Goal: Convert internship ML project into an
+industry-grade MLOps + Industrial AI system.
+
+=====================================================================
+SECTION 1 — PROJECT OVERVIEW
+=====================================================================
+
+This project builds an industrial AI system that optimizes fan blower
+performance using:
+
+1.  Vibration signals from sensors
+2.  Feature engineering (statistical + FFT)
+3.  Machine learning models
+4.  Bayesian optimization to find optimal RPM
+5.  MLOps pipeline (DVC + MLflow)
+6.  Cloud-ready architecture (AWS compatible)
+7.  Monitoring with Prometheus + Grafana
+
+The system workflow:
+
+Sensors → CSV vibration signals → Data ingestion → Feature engineering →
+ML training → Model registry → Bayesian optimization → Optimal RPM
+
+=====================================================================
+SECTION 2 — DEVELOPMENT ENVIRONMENT
+=====================================================================
+
+Recommended OS: Linux / Mac / WSL (Windows Subsystem for Linux)
+
+Python Version: Python 3.10
+
+Create environment:
+
+python3.10 -m venv blower_env source blower_env/bin/activate
+
+Upgrade pip:
+
+pip install –upgrade pip
+
+=====================================================================
+SECTION 3 — PROJECT FOLDER STRUCTURE
+=====================================================================
+
+fan-blower-ai/
+
+│ ├── data/ │ ├── raw/ # Vibxpert CSV files │ ├── raw_signals/ # Parsed
+numpy signals │ ├── processed/ # Final ML dataset │ └── flowrate/ # RPM
+vs Flow CSV │ ├── src/ │ ├── data_ingestion/ │ │ └── parse_vibxpert.py │
+│ │ ├── preprocessing/ │ │ └── organize_signals.py │ │ │ ├──
+feature_engineering/ │ │ ├── time_features.py │ │ ├── fft_features.py │
+│ └── build_dataset.py │ │ │ ├── training/ │ │ ├── train_models.py │ │
+└── evaluate_models.py │ │ │ ├── optimization/ │ │ └──
+bayesian_optimizer.py │ │ │ ├── inference/ │ │ └── predict.py │ ├──
+pipelines/ │ ├── training_pipeline.py │ └── optimization_pipeline.py │
+├── monitoring/ │ ├── prometheus_metrics.py │ └── grafana_dashboard.json
+│ ├── mlflow/ │ └── start_mlflow.sh │ ├── models/ │ ├── notebooks/ │ ├──
+dvc.yaml ├── params.yaml ├── requirements.txt └── README.md
+
+=====================================================================
+SECTION 4 — DATA INGESTION PIPELINE
+=====================================================================
+
+Goal: Convert Vibxpert CSV files into structured signals.
+
+Steps:
+
+1.  Read CSV file
+2.  Detect where signal values start
+3.  Extract ‘Value’ column
+4.  Parse RPM, Axis, Reading from filename
+5.  Save signal as numpy array
+
+Example filename:
+
+75A1.csv
+
+Parsed values:
+
+RPM = 75 Axis = A Reading = 1
+
+Saved structure:
+
+data/raw_signals/
+
+75/ H_1.npy H_2.npy V_1.npy V_2.npy A_1.npy A_2.npy
+
+=====================================================================
+SECTION 5 — FEATURE ENGINEERING
+=====================================================================
+
+Each vibration signal produces features.
+
+TIME DOMAIN FEATURES
+
+mean std rms min max peak skewness kurtosis crest factor shape factor
+impulse factor
+
+FREQUENCY DOMAIN FEATURES (FFT)
+
+dominant frequency spectral centroid spectral entropy band energy low
+band energy mid band energy high spectral kurtosis spectral rolloff
+
+Features per axis ≈ 19
+
+Total features:
+
+19 × 3 axis = 57 features + RPM + FlowRate
+
+Final dataset columns ≈ 59
+
+Rows:
+
+88 RPM × 2 readings = 176 samples
+
+=====================================================================
+SECTION 6 — DATASET BUILDING
+=====================================================================
+
+Pipeline:
+
+raw signals ↓ extract time features ↓ extract fft features ↓ merge axis
+features ↓ add flow rate data ↓ save final dataset
+
+Output:
+
+data/processed/final_dataset.csv
+
+=====================================================================
+SECTION 7 — MACHINE LEARNING TRAINING
+=====================================================================
+
+Models trained:
+
+Linear Regression Random Forest Gradient Boosting XGBoost Support Vector
+Regression KNN
+
+Metrics:
+
+R² MAE MSE
+
+Best model expected:
+
+KNN
+
+All experiments tracked using MLflow.
+
+=====================================================================
+SECTION 8 — MLFLOW EXPERIMENT TRACKING
+=====================================================================
+
+Start MLflow:
+
+mlflow server –backend-store-uri sqlite:///mlflow.db
+–default-artifact-root ./mlruns –host 0.0.0.0
+
+Track:
+
+parameters metrics model artifacts dataset version
+
+=====================================================================
+SECTION 9 — BAYESIAN OPTIMIZATION
+=====================================================================
+
+Goal:
+
+Find optimal RPM balancing:
+
+Maximum flow rate Minimum vibration
+
+Objective function:
+
+f(x) = α * FlowRate − β * RMS
+
+Optimization variable:
+
+RPM
+
+Algorithm:
+
+Gaussian Process + Expected Improvement
+
+Libraries:
+
+scikit-optimize Optuna
+
+=====================================================================
+SECTION 10 — DVC PIPELINE
+=====================================================================
+
+DVC manages reproducible ML pipelines.
+
+Stages:
+
+raw_data parse_signals extract_features build_dataset train_models
+evaluate_models bayesian_optimization
+
+Commands:
+
+dvc init dvc add data/raw dvc repro
+
+=====================================================================
+SECTION 11 — MONITORING
+=====================================================================
+
+Prometheus collects metrics:
+
+prediction latency model performance optimization outputs
+
+Grafana dashboards show:
+
+RPM optimization history vibration trends model metrics
+
+=====================================================================
+SECTION 12 — AWS DEPLOYMENT ARCHITECTURE
+=====================================================================
+
+Sensors ↓ CSV Upload ↓ AWS S3 ↓ EC2 / EKS ML Pipeline ↓ MLflow Server ↓
+Prediction API ↓ Grafana Dashboard
+
+=====================================================================
+SECTION 13 — REQUIREMENTS.TXT
+=====================================================================
+
+numpy pandas scipy scikit-learn xgboost optuna scikit-optimize
+matplotlib seaborn mlflow dvc dvc[s3] fastapi uvicorn pydantic joblib
+tqdm prometheus-client
+
+=====================================================================
+SECTION 14 — DEVELOPMENT ROADMAP
+=====================================================================
+
+Phase 1 — Data Pipeline build vibxpert parser signal storage feature
+extraction
+
+Phase 2 — ML Pipeline train models track experiments model comparison
+
+Phase 3 — Optimization Engine bayesian optimization optimal RPM
+prediction
+
+Phase 4 — MLOps DVC pipeline MLflow registry
+
+Phase 5 — Deployment API service Docker AWS integration
+
+Phase 6 — Monitoring Prometheus metrics Grafana dashboards
+
+=====================================================================
+END OF GUIDE
+=====================================================================

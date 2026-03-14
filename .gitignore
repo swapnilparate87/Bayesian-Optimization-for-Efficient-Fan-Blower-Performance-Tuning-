@@ -1,0 +1,5 @@
+blower_env/
+__pycache__/
+*.pyc
+mlruns/
+data/raw/
