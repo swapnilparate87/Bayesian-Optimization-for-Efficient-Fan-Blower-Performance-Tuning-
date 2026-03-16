@@ -27,7 +27,7 @@ jobs:
           pip install -r requirements.txt
           pip install dvc
 
-      - run: dvc pull
+      # - run: dvc pull || echo "No remote cache found, continuing..."
 
       - run: dvc repro
 
