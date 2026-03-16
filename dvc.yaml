@@ -1,0 +1,31 @@
+stages:
+
+  ingest:
+    cmd: python src/data_ingestion/parse_vibxpert.py
+    deps:
+      - src/data_ingestion/parse_vibxpert.py
+      - data/raw
+    outs:
+      - data/raw_signals
+
+  features:
+    cmd: python src/feature_engineering/build_dataset.py
+    deps:
+      - src/feature_engineering/build_dataset.py
+      - data/raw_signals
+    outs:
+      - data/processed/final_dataset.csv
+
+  train:
+    cmd: python src/training/train_models.py
+    deps:
+      - src/training/train_models.py
+      - data/processed/final_dataset.csv
+    outs:
+      - models
+
+  optimize:
+    cmd: python src/optimization/rpm_optimizer.py
+    deps:
+      - src/optimization/rpm_optimizer.py
+      - models

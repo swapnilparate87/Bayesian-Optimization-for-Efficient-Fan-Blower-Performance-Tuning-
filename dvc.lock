@@ -1,0 +1,66 @@
+schema: '2.0'
+stages:
+  ingest:
+    cmd: python src/data_ingestion/parse_vibxpert.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: 051f0dc8f8a3b6b1d302208103fe1ffb.dir
+      size: 260387286
+      nfiles: 522
+    - path: src/data_ingestion/parse_vibxpert.py
+      hash: md5
+      md5: 0f1e735763f46630bc2fd12ce3663a14
+      size: 1672
+    outs:
+    - path: data/raw_signals
+      hash: md5
+      md5: 5d876446bb52d6f5f109700cbfc7e5d0.dir
+      size: 57143105
+      nfiles: 522
+  features:
+    cmd: python src/feature_engineering/build_dataset.py
+    deps:
+    - path: data/raw_signals
+      hash: md5
+      md5: 5d876446bb52d6f5f109700cbfc7e5d0.dir
+      size: 57143105
+      nfiles: 522
+    - path: src/feature_engineering/build_dataset.py
+      hash: md5
+      md5: 96b239b33902e8c54d87e374bcfe2128
+      size: 1636
+    outs:
+    - path: data/processed/final_dataset.csv
+      hash: md5
+      md5: a1bcc6a95e49b0d1dce05ed56730cff7
+      size: 102128
+  train:
+    cmd: python src/training/train_models.py
+    deps:
+    - path: data/processed/final_dataset.csv
+      hash: md5
+      md5: a1bcc6a95e49b0d1dce05ed56730cff7
+      size: 102128
+    - path: src/training/train_models.py
+      hash: md5
+      md5: 0b3882c53a9b2d209c5f49c177650e96
+      size: 4737
+    outs:
+    - path: models
+      hash: md5
+      md5: f0843d8b034ae42925094aeb8df441b1.dir
+      size: 421
+      nfiles: 1
+  optimize:
+    cmd: python src/optimization/rpm_optimizer.py
+    deps:
+    - path: models
+      hash: md5
+      md5: f0843d8b034ae42925094aeb8df441b1.dir
+      size: 421
+      nfiles: 1
+    - path: src/optimization/rpm_optimizer.py
+      hash: md5
+      md5: cd8b563f0f77dc58dd0bd1a2e034c65a
+      size: 6214
