@@ -21,6 +21,13 @@ jobs:
           pip install -r requirements.txt
           pip install dvc
 
-      - run: echo "Skipping DVC pull"
+      - name: Configure DVC remote auth
+        run: |
+          dvc remote modify dagshub auth basic
+          dvc remote modify dagshub user ${{ secrets.DAGSHUB_USER }}
+          dvc remote modify dagshub password ${{ secrets.DAGSHUB_TOKEN }}
+
+      - name: Pull DVC data
+        run: dvc pull
 
       - run: dvc repro -f

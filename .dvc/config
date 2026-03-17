@@ -1,4 +1,9 @@
 [core]
-    remote = localremote
+    remote = dagshub
 ['remote "localremote"']
     url = ../../dvc_storage
+['remote "dagshub"']
+    url = https://dagshub.com/aashuparate12/Bayesian-Optimization-for-Efficient-Fan-Blower-Performance-Tuning.dvc
+    auth = basic
+    user = aashuparate12
+    password = 2040907752cdd0d1188092cc07e0362634dd2506

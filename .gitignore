@@ -5,3 +5,6 @@ mlruns/
 data/*
 !data/*.dvc
 models/
+
+cred.txt
+projectflow.txt
