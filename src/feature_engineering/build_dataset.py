@@ -6,7 +6,7 @@ from fft_features import compute_fft_features
 
 
 RAW_SIGNAL_DIR = Path("data/raw_signals")
-FLOWRATE_FILE = Path("data/flowrate/RPM vs Flow rate Data.csv")
+FLOWRATE_FILE = Path("data/flowrate/RPMvsFlowrateData.csv")
 
 OUTPUT_FILE = Path("data/processed/final_dataset.csv")
 
