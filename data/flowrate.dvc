@@ -1,0 +1,6 @@
+outs:
+- md5: a4410133af7ad2c632d1746212267d1b.dir
+  size: 988
+  nfiles: 1
+  hash: md5
+  path: flowrate
