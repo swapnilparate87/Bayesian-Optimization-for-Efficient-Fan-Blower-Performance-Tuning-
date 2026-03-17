@@ -16,6 +16,8 @@ import xgboost as xgb
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import joblib
+
 
 # ==============================
 # MLflow configuration
@@ -198,6 +200,12 @@ def main():
     results_df.to_csv(results_path, index=False)
 
     mlflow.log_artifact(results_path)
+
+    # After training your best model
+    joblib.dump(best_model, "models/best_model.pkl")
+
+    # Also log to MLflow as usual (keep that)
+    mlflow.sklearn.log_model(model, "model")
 
     print("\nModel comparison saved.")
 

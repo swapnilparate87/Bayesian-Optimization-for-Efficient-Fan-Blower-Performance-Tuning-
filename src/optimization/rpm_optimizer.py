@@ -1,12 +1,19 @@
 import numpy as np
 import pandas as pd
+import os
 import mlflow
 import mlflow.sklearn
 from skopt import gp_minimize
 from skopt.space import Real
-import random
+import random 
 
 DATA_PATH = "data/processed/final_dataset.csv"
+
+mlflow.set_tracking_uri(
+    f"https://dagshub.com/{os.environ['aashuparate12']}/Bayesian-Optimization-for-Efficient-Fan-Blower-Performance-Tuning-.mlflow"
+)
+mlflow.set_experiment("FanBlower_Models")
+
 
 
 # -------------------------------
