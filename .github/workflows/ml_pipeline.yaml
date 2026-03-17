@@ -21,9 +21,6 @@ jobs:
           pip install -r requirements.txt
           pip install dvc
 
-      - name: Pull DVC data
-        run: |
-          dvc pull || echo "Skipping pull (no remote access)"
+      - run: echo "Skipping DVC pull"
 
-      - name: Run pipeline
-        run: dvc repro -f
+      - run: dvc repro -f
