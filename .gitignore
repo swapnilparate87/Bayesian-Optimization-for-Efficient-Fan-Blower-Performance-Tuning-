@@ -8,3 +8,5 @@ models/
 
 cred.txt
 projectflow.txt
+/models
+.env

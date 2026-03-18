@@ -28,8 +28,8 @@ stages:
       nfiles: 522
     - path: src/feature_engineering/build_dataset.py
       hash: md5
-      md5: 96b239b33902e8c54d87e374bcfe2128
-      size: 1636
+      md5: 522670acd41dcb70ba0a4009f48be39a
+      size: 1632
     outs:
     - path: data/processed/final_dataset.csv
       hash: md5
@@ -44,23 +44,23 @@ stages:
       size: 102128
     - path: src/training/train_models.py
       hash: md5
-      md5: 0b3882c53a9b2d209c5f49c177650e96
-      size: 4737
+      md5: 704b59f309808564f4ad9549f488b222
+      size: 5378
     outs:
     - path: models
       hash: md5
-      md5: f0843d8b034ae42925094aeb8df441b1.dir
-      size: 421
-      nfiles: 1
+      md5: 07064a8abe8016d7d3a91c3c3a8bb744.dir
+      size: 141730
+      nfiles: 2
   optimize:
     cmd: python src/optimization/rpm_optimizer.py
     deps:
     - path: models
       hash: md5
-      md5: f0843d8b034ae42925094aeb8df441b1.dir
-      size: 421
-      nfiles: 1
+      md5: 07064a8abe8016d7d3a91c3c3a8bb744.dir
+      size: 141730
+      nfiles: 2
     - path: src/optimization/rpm_optimizer.py
       hash: md5
-      md5: cd8b563f0f77dc58dd0bd1a2e034c65a
-      size: 6214
+      md5: 7e38e6a81072465e14596ae529b289d4
+      size: 5387
