@@ -6,7 +6,7 @@ Pages:
   2. Signal Analysis — time-domain + FFT plots per axis
   3. Prediction History — table + trend chart of past predictions
 """
-
+import os
 import io
 import requests
 import pandas as pd
@@ -22,7 +22,8 @@ from feature_extractor import build_feature_row, get_signal_and_fft
 # ──────────────────────────────────────────────
 # Config
 # ──────────────────────────────────────────────
-API_URL = "http://localhost:8000"
+
+API_URL = os.environ.get("API_URL", "http://localhost:8000")
 
 st.set_page_config(
     page_title="Fan Blower Optimizer",
@@ -48,6 +49,7 @@ with st.sidebar:
     page = st.radio(
         "Navigation",
         ["🔮 Predict Flow Rate", "📊 Signal Analysis", "📈 Prediction History"],
+        index=0,
         label_visibility="collapsed",
     )
     st.markdown("---")

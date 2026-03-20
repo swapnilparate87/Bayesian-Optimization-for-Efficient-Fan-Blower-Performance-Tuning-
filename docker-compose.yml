@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+
+  # ── FastAPI Backend ──
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: fanblower_api
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=models/best_model.pkl
+      - DAGSHUB_USERNAME=${DAGSHUB_USERNAME}
+      - MLFLOW_TRACKING_USERNAME=${DAGSHUB_USERNAME}
+      - MLFLOW_TRACKING_PASSWORD=${DAGSHUB_TOKEN}
+    volumes:
+      - ./models:/app/models        # mount models folder so pkl is always latest
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # ── Streamlit Frontend ──
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: fanblower_streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000     # uses Docker internal network, not localhost
+    depends_on:
+      api:
+        condition: service_healthy  # waits for API to be healthy before starting
+    restart: unless-stopped
+
+networks:
+  default:
+    name: fanblower_network

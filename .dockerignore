@@ -1,0 +1,31 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+blower_env/
+.env
+
+# Data (too large for Docker image — mounted via volume or fetched via DVC)
+data/
+mlruns/
+artifacts/
+
+# DVC
+.dvc/tmp
+.dvc/cache
+
+# Dev files
+test_features.py
+*.ipynb
+.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
