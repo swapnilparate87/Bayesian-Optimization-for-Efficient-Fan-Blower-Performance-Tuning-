@@ -396,7 +396,7 @@ docker-compose pull && docker-compose up -d
 
 **Built with ❤️ by Swapnil Parate**
 
-[![GitHub](https://img.shields.io/badge/GitHub-aashuparate12-181717?style=for-the-badge&logo=github)](https://github.com/aashuparate12)
+[![GitHub](https://img.shields.io/badge/GitHub-aashuparate12-181717?style=for-the-badge&logo=github)](https://github.com/swapnilparate87)
 [![DagsHub](https://img.shields.io/badge/DagsHub-Experiments-945DD6?style=for-the-badge&logo=dvc)](https://dagshub.com/aashuparate12)
 
 *⭐ Star this repo if you found it helpful!*

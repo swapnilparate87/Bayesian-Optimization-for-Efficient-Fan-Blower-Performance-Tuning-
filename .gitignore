@@ -6,7 +6,15 @@ data/*
 !data/*.dvc
 models/
 
-cred.txt
 projectflow.txt
 /models
+
+# Credentials
 .env
+cred.txt
+*.pem
+.dvc/config.local
+
+# Local configs
+mlruns/
+mlflow.db
